@@ -6,17 +6,31 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
-      - name: Upload Debug APK
-        uses: actions/upload-artifact@v3
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses
+
+      - name: Make Gradle executable
+        run: chmod +x ./gradlew
+
+      - name: Build AnkiDroid debug APK
+        run: ./gradlew :AnkiDroid:assembleDebug --stacktrace
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: ankidroid-debug-apk
+          name: AnkiDroid-gamified-debug
           path: AnkiDroid/build/outputs/apk/debug/*.apk
