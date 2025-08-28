@@ -1197,6 +1197,17 @@ open class Reviewer :
             sched.answerCard(state, rating).also {
                 wasLeech = sched.stateIsLeech(state.states.again)
             }
+            // Gamificação: somar XP e atualizar HUD
+try {
+    val snap = com.ichi2.anki.gamify.XPManager.addXp(
+        this,
+        currentCard?.did?.toString(), // Nome do deck opcional
+        rating.ordinal + 1 // Ease 1–4
+    )
+    findViewById<com.ichi2.anki.gamify.ui.GamificationHudView?>(R.id.gamifyHud)?.refresh()
+} catch (_: Throwable) {
+    // Não quebrar o fluxo do revisor
+}
         }.also {
             if (rating == Rating.AGAIN && wasLeech) {
                 state.topCard.load(getColUnsafe)
