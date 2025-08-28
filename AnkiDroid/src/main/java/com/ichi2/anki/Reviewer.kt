@@ -17,6 +17,8 @@
 
 package com.ichi2.anki
 
+import com.ichi2.anki.gamify.XPManager
+import com.ichi2.anki.gamify.ui.GamificationHudView
 import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
