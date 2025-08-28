@@ -39,6 +39,11 @@
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/bottom_area_layout"/>
 
+     <com.ichi2.anki.gamify.ui.GamificationHudView
+    android:id="@+id/gamifyHud"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
         <include layout="@layout/reviewer_answer_buttons"
             tools:layout_width="match_parent"
             tools:layout_height="wrap_content"
